@@ -3,27 +3,54 @@ import java.util.Scanner;
 
 public class GraLosowanie{
 	public static void main(String[] args){
-	int wylosowanaLiczba=losujLiczbe();	
-	int podanaLiczba;
-	System.out.println(wylosowanaLiczba);
 	do{
-		int liczbaProb=0;
-		do{
-			System.out.println("Podaj Liczbę: ");
-			podanaLiczba=odczytajLiczbe();
-			liczbaProb++;
-			if(wylosowanaLiczba<podanaLiczba) System.out.println("Za dużo!");
-			else if(wylosowanaLiczba>podanaLiczba) System.out.println("Za mało!");
-			else System.out.println("Zgadłeś! Liczba prób:" +liczbaProb);
-		}while(wylosowanaLiczba!=podanaLiczba);	
-	}while(1!=1);
+		System.out.println("Rozpoczęto nową grę.");
+		rozpocznijGre();
+		System.out.println("Aby zagrać ponownie wpisz t, lub dowolny znak by zakończyć.");
+	}while(sprawdzZnak());
+}
+public static void rozpocznijGre(){
+	int wylosowanaLiczba;
+	int podanaLiczba;
+	int liczbaProb=0;
+	wylosowanaLiczba=losujLiczbe();
+	do{
+		System.out.println("Podaj liczbę: ");			
+		podanaLiczba=odczytajLiczbe();
+		liczbaProb++;
+		if(wylosowanaLiczba<podanaLiczba) System.out.println("Za dużo!");
+		else if(wylosowanaLiczba>podanaLiczba) System.out.println("Za mało!");
+		else System.out.println("Zgadłeś! Liczba prób:" +liczbaProb);
+	}while(wylosowanaLiczba!=podanaLiczba);
+}
+
+public static boolean sprawdzZnak(){
+		String odczytanyTekst;
+		Scanner odczytTekstu = new Scanner(System.in);
+		odczytanyTekst=odczytTekstu.nextLine();
+		if(	odczytanyTekst.toLowerCase().equals("t")) return true;
+		else return false;
 }
 public static int odczytajLiczbe(){
+		Scanner odczytLiczby = new Scanner(System.in);
 		String odczytanaLiczba;
-		Scanner odczyt = new Scanner(System.in);
-		odczytanaLiczba=odczyt.nextLine();
-		return Integer.parseInt(odczytanaLiczba);
+		int odczytanyInt=0;
+		int inputOut=0;
+		do{
+			try{
+				odczytanaLiczba=odczytLiczby.nextLine();
+				odczytanyInt=Integer.parseInt(odczytanaLiczba);
+				if (odczytanyInt<0) throw new NumberFormatException();
+				inputOut=1;
+			}
+			catch(NumberFormatException e){
+				System.out.println("Podana wartość powinna być liczbą całkowitą dodatnią!");
+				System.out.println("Podaj liczbę:");
+			}
+		}while(inputOut==0);	
+		return odczytanyInt;
 }
+
 public static int losujLiczbe(){
 		Random generator = new Random();
 		int wylosowanaLiczba;

@@ -14,6 +14,7 @@ public static void rozpocznijGre(){
 	int podanaLiczba;
 	int liczbaProb=0;
 	wylosowanaLiczba=losujLiczbe();
+	System.out.println("Wylosowana liczba " + wylosowanaLiczba);
 	do{
 		System.out.println("Podaj liczbę: ");			
 		podanaLiczba=odczytajLiczbe();
